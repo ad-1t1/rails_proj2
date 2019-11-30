@@ -18,12 +18,17 @@
 
   <div class="field">
     <%= form.label :author %>
-    <%= form.text_area :author %>
+    <%= form.text_field :author, value: book.author&.name %>
   </div>
 
   <div class="field">
     <%= form.label :cover_page %>
     <%= form.file_field :cover_page %>
+  </div>
+
+  <div class="field">
+    <%= form.label :review %>
+    <%= form.text_area :review%>
   </div>
 
   <div class="actions">

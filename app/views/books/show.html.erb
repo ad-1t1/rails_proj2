@@ -7,12 +7,17 @@
 
 <p>
   <strong>Author:</strong>
-  <%= @book.author %>
+  <%= @book.author.name %>
 </p>
 
 <p>
   <strong>Cover Page:</strong>
   <%= image_tag(@book.cover_page_url, width: 600) if @book.cover_page.present? %>
+</p>
+
+<p>
+  <strong>Review:</strong>
+  <%= @book.review %>
 </p>
 
 <%= link_to 'Edit', edit_book_path(@book) %> |

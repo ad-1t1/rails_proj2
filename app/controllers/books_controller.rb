@@ -24,7 +24,16 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    @book = Book.new(book_params)
+    author_name = author_params[:author].presence
+    author =  Author.find_or_create_by(name: author_name)
+    if author.persisted?
+      @book = Book.new(book_params.merge(author: author))
+    else
+      @book = Book.new(book_params.merge(author: nil))
+      @book.valid?
+      render :new
+      return
+    end
 
     respond_to do |format|
       if @book.save
@@ -69,6 +78,10 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:title, :author, :cover_page)
+      params.require(:book).permit(:title, :cover_page, :review)
+    end
+
+    def author_params
+      params.require(:book).permit(:author)
     end
 end
